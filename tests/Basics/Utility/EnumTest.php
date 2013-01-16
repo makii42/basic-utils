@@ -5,7 +5,7 @@ namespace Basics\Utility;
 /**
  * @author Ralf Fischer <themakii@gmail.com>
  */
-class EnumTypeTest extends \PHPUnit_Framework_TestCase
+class EnumTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers Basics\Utility\EnumType::__construct
@@ -54,23 +54,23 @@ class EnumTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param EnumType $enumType
+     * @param Enum $enumType
      *
      * @depends testConstruction
      * @covers Basics\Utility\EnumType::getName
      */
-    public function testGetNameWorksProperly(EnumType $enumType)
+    public function testGetNameWorksProperly(Enum $enumType)
     {
         $this->assertSame('FOO', $enumType->getName());
     }
 
     /**
-     * @param EnumType $enumType
+     * @param Enum $enumType
      *
      * @depends testConstruction
      * @covers Basics\Utility\EnumType::getValue
      */
-    public function testGetValueWorksProperly(EnumType $enumType)
+    public function testGetValueWorksProperly(Enum $enumType)
     {
         $this->assertSame('foo', $enumType->getValue());
     }
@@ -79,20 +79,20 @@ class EnumTypeTest extends \PHPUnit_Framework_TestCase
      * @depends testConstruction
      * @covers Basics\Utility\EnumType::__toString
      */
-    public function testToStringWorksAsExpected(EnumType $enumType)
+    public function testToStringWorksAsExpected(Enum $enumType)
     {
         $this->assertSame('FOO', '' . $enumType);
     }
 }
 
 
-class TestEnumeration extends EnumType
+class TestEnumeration extends Enum
 {
     const FOO = 'foo';
     const BAR = 'bar';
 }
 
-class TestEnumerationWithNullDefault extends EnumType
+class TestEnumerationWithNullDefault extends Enum
 {
     const DEF = null;
     const FOO = 'foo';

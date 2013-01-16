@@ -5,7 +5,7 @@ namespace Basics\Utility;
 /**
  * @author Ralf Fischer <themakii@gmail.com>
  */
-abstract class EnumType
+abstract class Enum
 {
 
     /**
