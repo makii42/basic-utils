@@ -8,8 +8,8 @@ namespace Basics\Utility;
 class EnumTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Basics\Utility\EnumType::__construct
-     * @covers Basics\Utility\EnumType::setValue
+     * @covers Basics\Utility\Enum::__construct
+     * @covers Basics\Utility\Enum::setValue
      * @return TestEnumeration
      */
     public function testConstruction()
@@ -22,7 +22,7 @@ class EnumTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @covers Basics\Utility\EnumType::__construct
+     * @covers Basics\Utility\Enum::__construct
      * @expectedException \LogicException
      */
     public function testConstructionFailsWhenNoDefaultValueWasDefined()
@@ -32,8 +32,8 @@ class EnumTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @covers Basics\Utility\EnumType::__construct
-     * @covers Basics\Utility\EnumType::setValue
+     * @covers Basics\Utility\Enum::__construct
+     * @covers Basics\Utility\Enum::setValue
      */
     public function testConstructionWithDefaultValueWorksWhenDefined()
     {
@@ -44,8 +44,8 @@ class EnumTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @covers Basics\Utility\EnumType::__construct
-     * @covers Basics\Utility\EnumType::setValue
+     * @covers Basics\Utility\Enum::__construct
+     * @covers Basics\Utility\Enum::setValue
      * @expectedException \LogicException
      */
     public function testConstructionWithIllegalValueFails()
@@ -54,34 +54,34 @@ class EnumTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param Enum $enumType
+     * @param Enum $Enum
      *
      * @depends testConstruction
-     * @covers Basics\Utility\EnumType::getName
+     * @covers Basics\Utility\Enum::getName
      */
-    public function testGetNameWorksProperly(Enum $enumType)
+    public function testGetNameWorksProperly(Enum $Enum)
     {
-        $this->assertSame('FOO', $enumType->getName());
+        $this->assertSame('FOO', $Enum->getName());
     }
 
     /**
-     * @param Enum $enumType
+     * @param Enum $Enum
      *
      * @depends testConstruction
-     * @covers Basics\Utility\EnumType::getValue
+     * @covers Basics\Utility\Enum::getValue
      */
-    public function testGetValueWorksProperly(Enum $enumType)
+    public function testGetValueWorksProperly(Enum $Enum)
     {
-        $this->assertSame('foo', $enumType->getValue());
+        $this->assertSame('foo', $Enum->getValue());
     }
 
     /**
      * @depends testConstruction
-     * @covers Basics\Utility\EnumType::__toString
+     * @covers Basics\Utility\Enum::__toString
      */
-    public function testToStringWorksAsExpected(Enum $enumType)
+    public function testToStringWorksAsExpected(Enum $Enum)
     {
-        $this->assertSame('FOO', '' . $enumType);
+        $this->assertSame('FOO', '' . $Enum);
     }
 }
 
