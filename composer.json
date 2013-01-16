@@ -1,5 +1,6 @@
 {
     "name": "makii/basic-utils",
+    "version": "0.0.1",
     "description": "Basic functionality that makes coding more ... satisfying.",
     "require": {
     },
