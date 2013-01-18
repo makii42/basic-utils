@@ -10,7 +10,7 @@ class UnitTest extends \PHPUnit_Framework_TestCase
      * @param string      $exceptionType
      * @param string|null $messagePortion
      */
-    public function assertException(Closure $callable, $exceptionType, $messagePortion = null)
+    public function assertException(\Closure $callable, $exceptionType, $messagePortion = null)
     {
         $exception = null;
         try {
