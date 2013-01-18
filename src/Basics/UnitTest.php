@@ -1,4 +1,5 @@
 <?php
+namespace Basics;
 /**
  * @author Ralf Fischer <themakii@gmail.com>
  */
