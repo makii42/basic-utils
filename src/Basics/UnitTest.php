@@ -15,6 +15,7 @@ class UnitTest extends \PHPUnit_Framework_TestCase
         $exception = null;
         try {
             $callable();
+            $this->fail('Expected exception "' . $exceptionType . '" not thrown');
         } catch (\Exception $e) {
             $exception = $e;
         }
