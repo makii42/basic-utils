@@ -2,10 +2,12 @@
 
 namespace Basics\Utility;
 
+use Basics\UnitTest;
+
 /**
  * @author Ralf Fischer <themakii@gmail.com>
  */
-class EnumTest extends \PHPUnit_Framework_TestCase
+class EnumTest extends UnitTest
 {
     /**
      * @covers Basics\Utility\Enum::__construct
@@ -54,34 +56,34 @@ class EnumTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param Enum $Enum
+     * @param Enum $enum
      *
      * @depends testConstruction
      * @covers Basics\Utility\Enum::getName
      */
-    public function testGetNameWorksProperly(Enum $Enum)
+    public function testGetNameWorksProperly(Enum $enum)
     {
-        $this->assertSame('FOO', $Enum->getName());
+        $this->assertSame('FOO', $enum->getName());
     }
 
     /**
-     * @param Enum $Enum
+     * @param Enum $enum
      *
      * @depends testConstruction
      * @covers Basics\Utility\Enum::getValue
      */
-    public function testGetValueWorksProperly(Enum $Enum)
+    public function testGetValueWorksProperly(Enum $enum)
     {
-        $this->assertSame('foo', $Enum->getValue());
+        $this->assertSame('foo', $enum->getValue());
     }
 
     /**
      * @depends testConstruction
      * @covers Basics\Utility\Enum::__toString
      */
-    public function testToStringWorksAsExpected(Enum $Enum)
+    public function testToStringWorksAsExpected(Enum $enum)
     {
-        $this->assertSame('FOO', '' . $Enum);
+        $this->assertSame('FOO', '' . $enum);
     }
 }
 

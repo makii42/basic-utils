@@ -3,6 +3,12 @@
 namespace Basics\Utility;
 
 /**
+ * Synthetically creates a typed value which is based upon a constant, but
+ * also allows the interpreter to do a simple type check when passing along
+ * the value.
+ *
+ * To use it, just create a class with a bunch of constants.
+ *
  * @author Ralf Fischer <themakii@gmail.com>
  */
 abstract class Enum
@@ -37,18 +43,18 @@ abstract class Enum
 
         if (func_num_args() > 0 && $value !== null) {
             $this->setValue($value);
-        } elseif (!in_array($this->value, $this->constants, true)) {
-            throw new \LogicException('invalid parameter "$value"');
+        } else if (!in_array($this->value, $this->constants, true)) {
+            throw new \LogicException("invalid parameter '$value'");
         }
     }
 
 
     /**
-     * Select a new value
+     * Sets the value for this Enum instance.
      *
-     * @param mixed $value
+     * @param mixed $value The value of this Enum instance.
      *
-     * @throws \LogicException
+     * @throws \LogicException When the value passed is not a valid value for this enumeration type.
      */
     private function setValue($value)
     {
@@ -60,9 +66,9 @@ abstract class Enum
 
 
     /**
-     * Get the current enum value
+     * Get the current enum value.
      *
-     * @return mixed
+     * @return mixed The value of this enumeration instance.
      */
     final public function getValue()
     {
@@ -71,7 +77,7 @@ abstract class Enum
 
 
     /**
-     * Get the current selected constant name
+     * Get the current selected constant name of this enumeration.
      *
      * @return string
      */
@@ -82,7 +88,7 @@ abstract class Enum
 
 
     /**
-     * Get the current selected constant name
+     * Get the current selected constant name.
      *
      * @return string
      * @see getName()
