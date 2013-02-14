@@ -7,7 +7,7 @@ namespace Basics;
  *
  * @author Ralf Fischer <themakii@gmail.com>
  */
-class UnitTest extends \PHPUnit_Framework_TestCase
+abstract class UnitTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Asserts a certain exception is thrown in a closure. If it's not thrown,
