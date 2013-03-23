@@ -222,6 +222,25 @@ class TypedListTest extends UnitTest
     }
 
     /**
+     * @covers Basics\Collection\TypedList::init
+     */
+    public function testInitWorksProperly()
+    {
+        $this->assertAttributeSame(array(), 'items', $this->typedList);
+        $this->assertAttributeSame(0, 'position', $this->typedList);
+
+        $items = array(
+            $this->expectItem(),
+            $this->expectItem()
+        );
+
+        $this->invokeUnreachableMethod($this->typedList, 'init', array($items, 1));
+
+        $this->assertAttributeSame($items, 'items', $this->typedList);
+        $this->assertAttributeSame(1, 'position', $this->typedList);
+    }
+
+    /**
      * @param int  $index
      * @param Item $item
      */

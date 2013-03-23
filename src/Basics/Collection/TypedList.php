@@ -13,10 +13,8 @@ abstract class TypedList implements \Iterator, \ArrayAccess, \Countable
 
     function __construct()
     {
-        $this->items    = array();
-        $this->position = 0;
+        $this->init(array());
     }
-
 
     /**
      * @param Item $item
@@ -188,5 +186,16 @@ abstract class TypedList implements \Iterator, \ArrayAccess, \Countable
     {
         return count($this->items);
     }
+
+    /**
+     * @param array $items The items to initialize the list with.
+     * @param int $position The initial position, defaults to 0.
+     */
+    protected function init(array $items, $position = 0)
+    {
+        $this->items = $items;
+        $this->position = $position;
+    }
+
 
 }
