@@ -188,6 +188,8 @@ abstract class TypedList implements \Iterator, \ArrayAccess, \Countable
     }
 
     /**
+     * Initializes the items of this collection.
+     *
      * @param array $items The items to initialize the list with.
      * @param int $position The initial position, defaults to 0.
      */
@@ -195,6 +197,19 @@ abstract class TypedList implements \Iterator, \ArrayAccess, \Countable
     {
         $this->items = $items;
         $this->position = $position;
+    }
+
+    /**
+     * Filters the items of this list.
+     *
+     * The closure is passed every item in this list. If the closure returns true, the item will be
+     * in the result, when false, it will be skipped.
+     *
+     * @param callable $closure The callback deciding which items are included in the subset.
+     * @return array The accepted arrays as a subset of the items of this collection.
+     */
+    protected function filter(\Closure $closure) {
+        return array_values(array_filter($this->items, $closure));
     }
 
 

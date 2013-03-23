@@ -56,7 +56,7 @@ class TypedListTest extends UnitTest
      */
     public function testCountWorksProperly()
     {
-        $this->expectSuccessiveCallsOnIsExpectedtype(5, true);
+        $this->expectSuccessiveCallsOnIsExpectedType(5, true);
 
         for ($i = 1; $i <= 5; $i++) {
             $this->assertCount($i - 1, $this->typedList);
@@ -75,7 +75,7 @@ class TypedListTest extends UnitTest
      */
     public function testIteratorInterfaceWorksProperly()
     {
-        $this->expectSuccessiveCallsOnIsExpectedtype(3, true);
+        $this->expectSuccessiveCallsOnIsExpectedType(3, true);
 
         $item0 = $this->expectItem();
         $item1 = $this->expectItem();
@@ -109,7 +109,7 @@ class TypedListTest extends UnitTest
      */
     public function testArrayAccessOffsetGet()
     {
-        $this->expectSuccessiveCallsOnIsExpectedtype(4, true);
+        $this->expectSuccessiveCallsOnIsExpectedType(4, true);
 
         $item0 = $this->expectItem();
         $item1 = $this->expectItem();
@@ -133,7 +133,7 @@ class TypedListTest extends UnitTest
      */
     public function testArrayAccessOffsetGetReturnsNullWhenIndexInvalid()
     {
-        $this->expectSuccessiveCallsOnIsExpectedtype(1, true);
+        $this->expectSuccessiveCallsOnIsExpectedType(1, true);
 
         $item = $this->expectItem();
         $this->typedList->add($item);
@@ -148,7 +148,7 @@ class TypedListTest extends UnitTest
      */
     public function testArrayAccessOffsetExists()
     {
-        $this->expectSuccessiveCallsOnIsExpectedtype(1, true);
+        $this->expectSuccessiveCallsOnIsExpectedType(1, true);
 
         $item = $this->expectItem();
         $this->typedList->add($item);
@@ -166,7 +166,7 @@ class TypedListTest extends UnitTest
      */
     public function testOffsetSetAndGetWorkProperly()
     {
-        $this->expectSuccessiveCallsOnIsExpectedtype(3, true);
+        $this->expectSuccessiveCallsOnIsExpectedType(3, true);
 
         $item0 = $this->expectItem();
         $item1 = $this->expectItem();
@@ -198,7 +198,7 @@ class TypedListTest extends UnitTest
      */
     public function testOffsetUnsetWorksProperly()
     {
-        $this->expectSuccessiveCallsOnIsExpectedtype(3, true);
+        $this->expectSuccessiveCallsOnIsExpectedType(3, true);
 
         $item0 = $this->expectItem();
         $item1 = $this->expectItem();
@@ -240,9 +240,46 @@ class TypedListTest extends UnitTest
         $this->assertAttributeSame(1, 'position', $this->typedList);
     }
 
+
     /**
-     * @param int  $index
-     * @param Item $item
+     * @covers Basics\Collection\TypedList::filter
+     */
+    public function testFilterWorksProperly()
+    {
+        $at0NotMatching = $this->expectItem();
+        $at1Matching    = $this->expectItem();
+        $at2NotMatching = $this->expectItem();
+        $at3NotMatching = $this->expectItem();
+        $at4Matching    = $this->expectItem();
+        $at5NotMatching = $this->expectItem();
+
+        $this->expectSuccessiveCallsOnIsExpectedType(6, true);
+
+        $this->typedList->add($at0NotMatching);
+        $this->typedList->add($at1Matching);
+        $this->typedList->add($at2NotMatching);
+        $this->typedList->add($at3NotMatching);
+        $this->typedList->add($at4Matching);
+        $this->typedList->add($at5NotMatching);
+
+        $matcher = function (Item $item) use ($at1Matching, $at4Matching) {
+            if ($at1Matching === $item || $at4Matching === $item) {
+                return true;
+            }
+            return false;
+        };
+
+        $result = $this->invokeUnreachableMethod($this->typedList, 'filter', array($matcher));
+
+        $this->assertCount(2, $result);
+        $this->assertSame(array($at1Matching, $at4Matching), $result);
+    }
+
+    /**
+     * Asserts a certain item at a certain index of the typed list.
+     *
+     * @param int  $index The index of the expected item.
+     * @param Item $item  The item expected at index.
      */
     private function assertIndexValidAndHoldsExpectedItem($index, Item $item)
     {
@@ -256,14 +293,13 @@ class TypedListTest extends UnitTest
      * @param int  $count
      * @param bool $isExpectedType
      */
-    private function expectSuccessiveCallsOnIsExpectedtype($count, $isExpectedType)
+    private function expectSuccessiveCallsOnIsExpectedType($count, $isExpectedType)
     {
         $this->typedList->expects($this->exactly($count))
             ->method('isExpectedType')
             ->with($this->isInstanceOf('Basics\Collection\Item'))
             ->will($this->returnValue($isExpectedType));
     }
-
 
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|Item
