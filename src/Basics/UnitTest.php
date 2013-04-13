@@ -37,6 +37,9 @@
 
 namespace Basics;
 
+use PHPUnit_Framework_Error;
+use PHPUnit_Framework_Exception;
+
 /**
  * This class bundles some functionality for unit tests.
  *
@@ -56,22 +59,28 @@ abstract class UnitTest extends \PHPUnit_Framework_TestCase
      * Additionally you may specify a string, which is expected to be contained
      * in the message string of the exception. This one is optional.
      *
+     * You may also perform additional assertions on the exception, as it is
+     * returned as well.
+     *
      * @param callable    $callable       The callable throwing the exception.
      * @param string      $exceptionType  The type of the expected exception
      * @param string|null $messagePortion A string expected to be in the message of the thrown exception.
-     * @throws \Exception|\PHPUnit_Framework_Exception|\PHPUnit_Framework_Error
-     * @return void
+     * @throws \Exception|PHPUnit_Framework_Exception|PHPUnit_Framework_Error
+     * @return \Exception
      */
     public function assertException(\Closure $callable, $exceptionType, $messagePortion = null)
     {
+        /*
+         * We are going to rethrow the PHPUnit-specific exceptions, as in this case
+         * something before the expected exception went wrong.
+         */
         $exception = null;
         try {
             $callable();
             $this->fail('Expected exception "' . $exceptionType . '" not thrown');
-        } catch (\PHPUnit_Framework_Error $e) {
+        } catch (PHPUnit_Framework_Error $e) {
             throw $e;
         } catch (\PHPUnit_Framework_Exception $e) {
-            // rethrow this, might be the fail above, or a mock expectation.
             throw $e;
         } catch (\Exception $e) {
             $exception = $e;
@@ -81,6 +90,7 @@ abstract class UnitTest extends \PHPUnit_Framework_TestCase
         if ($messagePortion !== null) {
             $this->assertContains($messagePortion, $exception->getMessage());
         }
+        return $exception;
     }
 
     /**
