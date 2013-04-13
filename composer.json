@@ -1,7 +1,9 @@
 {
     "name": "makii42/basic-utils",
-    "version": "0.0.1",
+    "version": "0.0.4",
     "description": "Basic functionality that makes coding more ... satisfying.",
+    "type": "library",
+    "license": "BSD-3-Clause",
     "require": {
     },
     "require-dev": {
@@ -9,9 +11,11 @@
         "phpunit/phpunit-mock-objects": "1.2.1",
         "phpunit/php-invoker": "1.1.1"
     },
-    "minimum-stability": "alpha",
+    "minimum-stability": "stable",
     "autoload": {
-        "psr-0": {"Basics": "src"}
+        "psr-0": {
+            "Basics": "src"
+        }
     },
     "authors": [
         {
