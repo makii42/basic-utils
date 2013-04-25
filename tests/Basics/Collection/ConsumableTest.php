@@ -94,4 +94,27 @@ class ConsumableTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($bar, $consumable->consumeNext());
         $this->assertNull($consumable->consumeNext());
     }
+
+    public function testPeekReturnsNullOnEmtpyElements()
+    {
+        $consumable = new Consumable(array());
+        $this->assertFalse($consumable->hasMore());
+        $this->assertNull($consumable->peek());
+    }
+
+    public function testSuccessivePeekCallsReturnTheSameValue()
+    {
+        $first = 'foo';
+        $second = 'bar';
+
+        $consumable = new Consumable(array($first, $second));
+
+        $this->assertSame($first, $consumable->peek());
+        $this->assertSame($first, $consumable->peek());
+        $this->assertSame($first, $consumable->consumeNext());
+
+        $this->assertSame($second, $consumable->peek());
+        $this->assertSame($second, $consumable->peek());
+        $this->assertSame($second, $consumable->consumeNext());
+    }
 }

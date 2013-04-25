@@ -79,4 +79,18 @@ class Consumable
     {
         return array_shift($this->elements);
     }
+
+    /**
+     * You may peek on the next consumable element which is returned by
+     * this method.
+     *
+     * @return mixed|null
+     */
+    public function peek()
+    {
+        if (count($this->elements) > 0) {
+            return $this->elements[0];
+        }
+        return null;
+    }
 }
